@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from './components/Form/Form';
 import Table from './components/Table/Table';
 
 interface Expense {
-  name: string;
+  author: string; // Заменяем name на author
   date: string;
   amount: number;
   category: string;
@@ -11,14 +11,24 @@ interface Expense {
 }
 
 const App: React.FC = () => {
-  const [expenses, setExpenses] = useState<Expense[]>([
-    { name: "Продукты", date: "2023-09-01", amount: 50000, category: "Еда", comment: "Продукты на неделю" },
-    { name: "Автобус", date: "2023-09-03", amount: 300, category: "Транспорт", comment: "" },
-    { name: "Кино", date: "2023-09-05", amount: 12000, category: "Развлечения", comment: "После работы" },
-  ]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/transactions')
+      .then(response => response.json())
+      .then(data => setExpenses(data))
+      .catch(error => console.error('Ошибка загрузки данных:', error));
+  }, []);
 
   const addExpense = (expense: Expense) => {
-    setExpenses([...expenses, expense]);
+    fetch('http://localhost:5000/api/transactions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(expense)
+    })
+      .then(response => response.json())
+      .then(newExpense => setExpenses([...expenses, newExpense]))
+      .catch(error => console.error('Ошибка добавления транзакции:', error));
   };
 
   return (

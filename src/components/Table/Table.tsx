@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Table.module.scss';
 
 interface Expense {
-  name: string;
+  author: string; // Используем author
   date: string;
   amount: number;
   category: string;
@@ -14,7 +14,7 @@ const Table: React.FC<{ expenses: Expense[] }> = ({ expenses }) => {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th>Наименование</th>
+          <th>Автор</th>
           <th>Дата</th>
           <th>Сумма</th>
           <th>Категория</th>
@@ -23,12 +23,12 @@ const Table: React.FC<{ expenses: Expense[] }> = ({ expenses }) => {
       </thead>
       <tbody>
         {expenses.map((expense, index) => (
-          <tr key={index}>
-            <td>{expense.name}</td>
-            <td>{expense.date}</td>
-            <td>{expense.amount}</td>
-            <td>{expense.category}</td>
-            <td>{expense.comment}</td>
+          <tr key={index} className="bg-white odd:bg-gray-100">
+            <td className="border px-4 py-2">{expense.author}</td> {/* Заменено на author */}
+            <td className="border px-4 py-2">{expense.date}</td>
+            <td className="border px-4 py-2">{expense.amount}</td>
+            <td className="border px-4 py-2">{expense.category}</td>
+            <td className="border px-4 py-2">{expense.comment}</td>
           </tr>
         ))}
       </tbody>
