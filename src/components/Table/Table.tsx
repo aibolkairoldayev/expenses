@@ -3,8 +3,8 @@ import styles from './Table.module.scss';
 
 interface Expense {
   author: string; // Используем author
-  date: string;
-  amount: number;
+  dateTime: string;
+  sum: number;
   category: string;
   comment?: string;
 }
@@ -24,9 +24,9 @@ const Table: React.FC<{ expenses: Expense[] }> = ({ expenses }) => {
       <tbody>
         {expenses.map((expense, index) => (
           <tr key={index} className="bg-white odd:bg-gray-100">
-            <td className="border px-4 py-2">{expense.author}</td> {/* Заменено на author */}
-            <td className="border px-4 py-2">{expense.date}</td>
-            <td className="border px-4 py-2">{expense.amount}</td>
+            <td className="border px-4 py-2">{expense.author}</td>
+            <td className="border px-4 py-2">{expense.dateTime ? expense.dateTime.slice(0, 10) : ""}</td>
+            <td className="border px-4 py-2">{expense.sum}</td>
             <td className="border px-4 py-2">{expense.category}</td>
             <td className="border px-4 py-2">{expense.comment}</td>
           </tr>

@@ -24,18 +24,18 @@ db.connect((err) => {
 
 app.get('/api/transactions', (req, res) => {
   const query = 'SELECT * FROM transactions';
-  connection.query(query, (error, results) => {
+  db.query(query, (error, results) => {
     if (error) throw error;
     res.json(results);
   });
 });
 
 app.post('/api/transactions', (req, res) => {
-  const { author, date, amount, category, comment } = req.body;
-  const query = 'INSERT INTO transactions (author, date, amount, category, comment) VALUES (?, ?, ?, ?, ?)';
-  connection.query(query, [author, date, amount, category, comment], (error, results) => {
+  const { author, dateTime, sum, category, comment } = req.body;
+  const query = 'INSERT INTO transactions (author, dateTime, sum, category, comment) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [author, dateTime, sum, category, comment], (error, results) => {
     if (error) throw error;
-    res.json({ id: results.insertId, author, date, amount, category, comment });
+    res.json({ id: results.insertId, author, dateTime, sum, category, comment });
   });
 });
 

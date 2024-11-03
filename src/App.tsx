@@ -3,9 +3,9 @@ import Form from './components/Form/Form';
 import Table from './components/Table/Table';
 
 interface Expense {
-  author: string; // Заменяем name на author
-  date: string;
-  amount: number;
+  author: string; 
+  dateTime: string;
+  sum: number;
   category: string;
   comment?: string;
 }
